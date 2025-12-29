@@ -33,7 +33,7 @@ public class WordleGame {
         this.dictionary = dictionary;
     }
 
-    public boolean checkAnswer(String guess, PrintWriter logWriter) throws GameException{
+    public boolean checkAnswer(String guess, PrintWriter logWriter) throws GameException {
         if (guess.length() != answer.length() || guess == null) {
             logWriter.println("Некорректная длина слова\n");
             throw new GameException("Некорректная длина слова\n");
@@ -47,7 +47,7 @@ public class WordleGame {
             isFinished = true;
         }
 
-        if(steps>=maxSteps){
+        if (steps >= maxSteps) {
             logWriter.println("Вы истратили все попытки\n");
             throw new GameException("Вы истратили все попытки!\n");
         }
@@ -62,7 +62,7 @@ public class WordleGame {
         return steps;
     }
 
-    public String  hintsAnswer (String guess) {
+    public String hintsAnswer(String guess) {
         StringBuilder result = new StringBuilder();
 
         boolean[] answerUsed = new boolean[answer.length()];
