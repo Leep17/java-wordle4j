@@ -20,14 +20,15 @@ public class WordleDictionary {
     public boolean containsWord(String word){
         return words.contains(word);
     }
-    public String giveWord(){
+    
+    public String giveWord() {
         Collections.shuffle(words);
         Random rand = new Random();
         int index = rand.nextInt(words.size());
         return words.get(index);
     }
 
-    public int getDictionarySize(){
+    public int getDictionarySize() {
         return words.size();
     }
 }
