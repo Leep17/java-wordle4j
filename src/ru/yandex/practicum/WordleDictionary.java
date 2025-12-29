@@ -16,13 +16,6 @@ public class WordleDictionary {
     public WordleDictionary(List<String> words) {
         this.words = words;
     }
-    
-    public String giveWord() {
-        Collections.shuffle(words);
-        Random rand = new Random();
-        int index = rand.nextInt(words.size());
-        return words.get(index);
-    }
 
     public boolean containsWord(String word) {
         return words.contains(word);
@@ -30,5 +23,12 @@ public class WordleDictionary {
 
     public int getDictionarySize() {
         return words.size();
+    }
+
+    public String giveWord(){
+        Collections.shuffle(words);
+        Random rand = new Random();
+        int index = rand.nextInt(words.size());
+        return words.get(index);
     }
 }
