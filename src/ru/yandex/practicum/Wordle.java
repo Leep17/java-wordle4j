@@ -29,7 +29,7 @@ public class Wordle {
             logWriter.println("Загаданное слово: " + qustion + "\n");
             System.out.print("Игра началась\n");
             System.out.print("У Вас 6 попыток!\n");
-            while (!game.isFinished()){
+            while (!game.isFinished()) {
                 System.out.print("Введите слово: ");
                 String guess = scanner.nextLine().trim().toLowerCase();
                 logWriter.println("Попытка № " + game.getSteps() + "\n");
@@ -43,9 +43,9 @@ public class Wordle {
                     break;
                 }
             }
-        }catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Ошибка работы: " + e.getMessage());
-        }catch (GameException e){
+        } catch (GameException e) {
             System.out.println(e.getMessage());
 
         }
