@@ -25,7 +25,7 @@ public class WordleDictionary {
         return words.size();
     }
 
-    public String giveWord(){
+    public String giveWord() {
         Collections.shuffle(words);
         Random rand = new Random();
         int index = rand.nextInt(words.size());
