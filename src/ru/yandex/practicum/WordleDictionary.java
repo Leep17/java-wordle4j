@@ -17,7 +17,7 @@ public class WordleDictionary {
         this.words = words;
     }
 
-    public boolean containsWord(String word){
+    public boolean containsWord(String word) {
         return words.contains(word);
     }
     
