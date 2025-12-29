@@ -12,16 +12,16 @@ import java.util.List;
 public class WordleDictionaryLoader {
     public static WordleDictionary dictionaryLoader(PrintWriter logWriter) {
         List<String> newList = new ArrayList<>();
-        try (BufferedReader fileReader = new BufferedReader(new FileReader("words_ru.txt"))){
+        try (BufferedReader fileReader = new BufferedReader(new FileReader("words_ru.txt"))) {
             String line;
             while ((line = fileReader.readLine()) != null) {
-                if(line.length()==5) {
+                if (line.length() == 5) {
                     newList.add(line.replace("ё", "е"));
                 }
             }
             logWriter.println("Словарь загружен\n");
             logWriter.println("Кол-во загруженных слов: " + newList.size() + "\n");
-        }catch (IOException e){
+        } catch (IOException e) {
             logWriter.println("Ошибка при загрузке словаря: " + e.getMessage() + "\n");
         }
         return new WordleDictionary(newList);
