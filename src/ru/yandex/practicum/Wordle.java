@@ -49,8 +49,5 @@ public class Wordle {
             System.out.println(e.getMessage());
 
         }
-
-
     }
-
 }
