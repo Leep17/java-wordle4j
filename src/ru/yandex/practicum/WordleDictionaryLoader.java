@@ -10,12 +10,12 @@ import java.util.List;
     на выходе должен быть класс WordleDictionary
  */
 public class WordleDictionaryLoader {
-    public static WordleDictionary dictionaryLoader(PrintWriter logWriter) {
+    public static WordleDictionary dictionaryLoader(int lengthOfWord,PrintWriter logWriter) {
         List<String> newList = new ArrayList<>();
         try (BufferedReader fileReader = new BufferedReader(new FileReader("words_ru.txt"))) {
             String line;
             while ((line = fileReader.readLine()) != null) {
-                if (line.length() == 5) {
+                if (line.length() == lengthOfWord) {
                     newList.add(line.replace("ё", "е"));
                 }
             }

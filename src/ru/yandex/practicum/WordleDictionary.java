@@ -12,6 +12,7 @@ import java.util.Random;
 public class WordleDictionary {
 
     private List<String> words;
+    Random rand = new Random();
 
     public WordleDictionary(List<String> words) {
         this.words = words;
@@ -27,7 +28,6 @@ public class WordleDictionary {
 
     public String giveWord() {
         Collections.shuffle(words);
-        Random rand = new Random();
         int index = rand.nextInt(words.size());
         return words.get(index);
     }

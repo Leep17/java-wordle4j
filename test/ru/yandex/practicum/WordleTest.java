@@ -14,7 +14,7 @@ class WordleTest {
     void testLoadDictionary() {
         String logFilename = "log.txt";
         try (PrintWriter logWriter = new PrintWriter(logFilename)) {
-            WordleDictionary newDictionary = WordleDictionaryLoader.dictionaryLoader(logWriter);
+            WordleDictionary newDictionary = WordleDictionaryLoader.dictionaryLoader(5, logWriter);
             Assertions.assertEquals(4165, newDictionary.getDictionarySize());
         } catch (IOException e) {
             System.out.println("Ошибка работы: " + e.getMessage());
@@ -25,7 +25,7 @@ class WordleTest {
     void testGetQuestionWord() {
         String logFilename = "log.txt";
         try (PrintWriter logWriter = new PrintWriter(logFilename)) {
-            WordleDictionary newDictionary = WordleDictionaryLoader.dictionaryLoader(logWriter);
+            WordleDictionary newDictionary = WordleDictionaryLoader.dictionaryLoader(5, logWriter);
             Assertions.assertNotEquals(null, newDictionary.giveWord());
         } catch (IOException e) {
             System.out.println("Ошибка работы: " + e.getMessage());
@@ -36,7 +36,7 @@ class WordleTest {
     void testLenghtQuestionWord() {
         String logFilename = "log.txt";
         try (PrintWriter logWriter = new PrintWriter(logFilename)) {
-            WordleDictionary newDictionary = WordleDictionaryLoader.dictionaryLoader(logWriter);
+            WordleDictionary newDictionary = WordleDictionaryLoader.dictionaryLoader(5, logWriter);
             Assertions.assertEquals(5, newDictionary.giveWord().length());
         } catch (IOException e) {
             System.out.println("Ошибка работы: " + e.getMessage());

@@ -17,21 +17,19 @@ public class Wordle {
 
     public static void main(String[] args) {
         String logFilename = "log.txt";
-        String qustion;
         String hints;
         Scanner scanner = new Scanner(System.in);
         try (PrintWriter logWriter = new PrintWriter(logFilename)) {
             logWriter.println("Игра началась\n");
-            WordleDictionary newDictionary = WordleDictionaryLoader.dictionaryLoader(logWriter);
-            qustion = newDictionary.giveWord().toLowerCase();
-            WordleGame game = new WordleGame(qustion, newDictionary);
-            System.out.println(qustion);
-            logWriter.println("Загаданное слово: " + qustion + "\n");
+            WordleDictionary newDictionary = WordleDictionaryLoader.dictionaryLoader(5, logWriter);
+            WordleGame game = new WordleGame(newDictionary);
+            System.out.println(game.getAnswer());
+            logWriter.println("Загаданное слово: " + game.getAnswer() + "\n");
             System.out.print("Игра началась\n");
             System.out.print("У Вас 6 попыток!\n");
             while (!game.isFinished()) {
                 System.out.print("Введите слово: ");
-                String guess = scanner.nextLine().trim().toLowerCase();
+                String guess = scanner.nextLine().toLowerCase();
                 logWriter.println("Попытка № " + game.getSteps() + "\n");
                 logWriter.println("Ответ: " + guess + "\n");
                 game.checkAnswer(guess, logWriter);

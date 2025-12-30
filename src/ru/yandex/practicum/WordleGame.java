@@ -22,28 +22,30 @@ public class WordleGame {
 
     private WordleDictionary dictionary;
 
-    private static final int maxSteps = 7;
+    private int maxSteps;
 
     private boolean isFinished;
 
-    public WordleGame(String answer, WordleDictionary dictionary) {
+    public WordleGame(WordleDictionary dictionary) {
         this.steps = 1;
         this.isFinished = false;
-        this.answer = answer;
         this.dictionary = dictionary;
+        this.maxSteps = 7;
+        this.answer = dictionary.giveWord().toLowerCase();
     }
 
     public boolean checkAnswer(String guess, PrintWriter logWriter) throws GameException {
-        if (guess.length() != answer.length() || guess == null) {
+
+        if ((guess.trim().length() != answer.length() && !guess.isBlank()) || guess.isEmpty()) {
             logWriter.println("Некорректная длина слова\n");
             throw new GameException("Некорректная длина слова\n");
         }
-        if (!dictionary.containsWord(guess)) {
+        if (!dictionary.containsWord(guess.trim()) && !guess.isBlank()) {
             logWriter.println("Слово не из словаря\n");
             throw new GameException("Слово не из словаря\n");
         }
         steps++;
-        if (guess.equals(answer)) {
+        if (guess.trim().equalsIgnoreCase(answer)) {
             isFinished = true;
         }
 
@@ -51,7 +53,7 @@ public class WordleGame {
             logWriter.println("Вы истратили все попытки\n");
             throw new GameException("Вы истратили все попытки!\n");
         }
-        return isFinished();
+        return isFinished;
     }
 
     public boolean isFinished() {
@@ -62,41 +64,27 @@ public class WordleGame {
         return steps;
     }
 
+    public String getAnswer() {
+        return answer;
+    }
+
     public String hintsAnswer(String guess) {
-        StringBuilder result = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
-        boolean[] answerUsed = new boolean[answer.length()];
-
-        for (int i = 0; i < guess.length(); i++) {
-            if (guess.charAt(i) == answer.charAt(i)) {
-                result.append('+');
-                answerUsed[i] = true;
-            } else {
-                result.append(' ');
-            }
+        if (guess.trim().length() == answer.length() && !guess.isBlank()) {
+            guess = guess.trim();
         }
 
-        for (int i = 0; i < guess.length(); i++) {
-            if (result.charAt(i) == '+') {
-                continue;
-            }
-            char letter = guess.charAt(i);
-            boolean found = false;
-            for (int j = 0; j < answer.length(); j++) {
-                if (!answerUsed[j] && letter == answer.charAt(j)) {
-                    found = true;
-                    answerUsed[j] = true;
-                    break;
-                }
-            }
-            if (found) {
-                result.setCharAt(i, '^');
+        for (int c = 0; c < guess.length(); c++) {
+            if (answer.charAt(c) == guess.charAt(c)) {
+                sb.append("+");
+            } else if (answer.contains(String.valueOf(guess.charAt(c)))) {
+                sb.append("^");
             } else {
-                result.setCharAt(i, '-');
+                sb.append("-");
             }
         }
-
-        return result.toString();
+        return sb.toString();
     }
 
 }
