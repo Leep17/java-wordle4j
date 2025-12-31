@@ -29,13 +29,16 @@ public class Wordle {
             System.out.print("У Вас 6 попыток!\n");
             while (!game.isFinished()) {
                 System.out.print("Введите слово: ");
-                String guess = scanner.nextLine().toLowerCase();
+                String guess = scanner.nextLine().trim().toLowerCase();
                 logWriter.println("Попытка № " + game.getSteps() + "\n");
                 logWriter.println("Ответ: " + guess + "\n");
+                if(guess.isEmpty()){
+                    guess = game.giveHints(logWriter);
+                    System.out.println("Подсказка: " + guess);
+                }
                 game.checkAnswer(guess, logWriter);
                 hints = game.hintsAnswer(guess);
                 logWriter.println("Подсказка: " + hints + "\n");
-                System.out.println(game.hintsAnswer(guess));
                 if (game.isFinished()) {
                     System.out.println("Слово угадано! Победа!");
                     break;

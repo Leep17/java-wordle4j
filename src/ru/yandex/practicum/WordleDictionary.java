@@ -31,4 +31,8 @@ public class WordleDictionary {
         int index = rand.nextInt(words.size());
         return words.get(index);
     }
+
+    public List<String> getWords() {
+        return words;
+    }
 }

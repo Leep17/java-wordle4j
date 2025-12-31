@@ -1,6 +1,9 @@
 package ru.yandex.practicum;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
 
 /*
 в этом классе хранится словарь и состояние игры
@@ -26,6 +29,9 @@ public class WordleGame {
 
     private boolean isFinished;
 
+    LinkedHashSet<Character> guessAnswer = new LinkedHashSet<>();
+    LinkedHashSet<String> variants = new LinkedHashSet<>();
+
     public WordleGame(WordleDictionary dictionary) {
         this.steps = 1;
         this.isFinished = false;
@@ -36,16 +42,17 @@ public class WordleGame {
 
     public boolean checkAnswer(String guess, PrintWriter logWriter) throws GameException {
 
-        if ((guess.trim().length() != answer.length() && !guess.isBlank()) || guess.isEmpty()) {
+        if (guess.length() != answer.length() && !guess.isEmpty()) {
             logWriter.println("Некорректная длина слова\n");
             throw new GameException("Некорректная длина слова\n");
         }
-        if (!dictionary.containsWord(guess.trim()) && !guess.isBlank()) {
+        if (!dictionary.containsWord(guess) && !guess.isBlank()) {
             logWriter.println("Слово не из словаря\n");
             throw new GameException("Слово не из словаря\n");
         }
         steps++;
-        if (guess.trim().equalsIgnoreCase(answer)) {
+        variants.add(guess);
+        if (guess.equalsIgnoreCase(answer)) {
             isFinished = true;
         }
 
@@ -64,22 +71,55 @@ public class WordleGame {
         return steps;
     }
 
+    public String giveHints(PrintWriter logWriter) {
+
+        String bestWord = null;
+        int maxCount = -1;
+
+        if (steps == 1) {
+            for (String i : dictionary.getWords()) {
+                if (i.contains(answer.substring(0,1))) {
+                    variants.add(i);
+                    logWriter.println("Подсказка: " + bestWord + "\n");
+                    return i;
+                }
+            }
+        }
+        for (String word : dictionary.getWords()) {
+            int count = 0;
+            for (char ch : word.toCharArray()) {
+                if (guessAnswer.contains(ch)) {
+                    count++;
+                }
+            }
+            if (count > maxCount && !variants.contains(word)) {
+                maxCount = count;
+                bestWord = word;
+            }
+        }
+        if (bestWord!=null) {
+            variants.add(bestWord);
+            logWriter.println("Подсказка: " + bestWord + "\n");
+            return bestWord;
+        }
+        logWriter.println("Подходящих слов нет!\n");
+        return "Подходящих слов нет!";
+    }
+
     public String getAnswer() {
         return answer;
     }
 
     public String hintsAnswer(String guess) {
         StringBuilder sb = new StringBuilder();
-
-        if (guess.trim().length() == answer.length() && !guess.isBlank()) {
-            guess = guess.trim();
-        }
-
+        variants.add(guess);
         for (int c = 0; c < guess.length(); c++) {
             if (answer.charAt(c) == guess.charAt(c)) {
                 sb.append("+");
+                guessAnswer.add(guess.charAt(c));
             } else if (answer.contains(String.valueOf(guess.charAt(c)))) {
                 sb.append("^");
+                guessAnswer.add(guess.charAt(c));
             } else {
                 sb.append("-");
             }
