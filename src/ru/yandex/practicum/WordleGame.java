@@ -1,10 +1,7 @@
 package ru.yandex.practicum;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
-
 /*
 в этом классе хранится словарь и состояние игры
     текущий шаг
@@ -50,7 +47,6 @@ public class WordleGame {
             logWriter.println("Слово не из словаря\n");
             throw new GameException("Слово не из словаря\n");
         }
-        steps++;
         variants.add(guess);
         if (guess.equalsIgnoreCase(answer)) {
             isFinished = true;
@@ -60,6 +56,7 @@ public class WordleGame {
             logWriter.println("Вы истратили все попытки\n");
             throw new GameException("Вы истратили все попытки!\n");
         }
+        steps++;
         return isFinished;
     }
 
@@ -97,7 +94,7 @@ public class WordleGame {
                 bestWord = word;
             }
         }
-        if (bestWord!=null) {
+        if (bestWord != null) {
             variants.add(bestWord);
             logWriter.println("Подсказка: " + bestWord + "\n");
             return bestWord;

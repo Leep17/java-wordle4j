@@ -23,7 +23,6 @@ public class Wordle {
             logWriter.println("Игра началась\n");
             WordleDictionary newDictionary = WordleDictionaryLoader.dictionaryLoader(5, logWriter);
             WordleGame game = new WordleGame(newDictionary);
-            System.out.println(game.getAnswer());
             logWriter.println("Загаданное слово: " + game.getAnswer() + "\n");
             System.out.print("Игра началась\n");
             System.out.print("У Вас 6 попыток!\n");
@@ -39,6 +38,7 @@ public class Wordle {
                 game.checkAnswer(guess, logWriter);
                 hints = game.hintsAnswer(guess);
                 logWriter.println("Подсказка: " + hints + "\n");
+                System.out.println(game.hintsAnswer(guess));
                 if (game.isFinished()) {
                     System.out.println("Слово угадано! Победа!");
                     break;
