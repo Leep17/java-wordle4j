@@ -32,7 +32,7 @@ public class Wordle {
                 String guess = scanner.nextLine().trim().toLowerCase();
                 logWriter.println("Попытка № " + game.getSteps() + "\n");
                 logWriter.println("Ответ: " + guess + "\n");
-                if(guess.isEmpty()){
+                if (guess.isEmpty()) {
                     guess = game.giveHints(logWriter);
                     System.out.println("Подсказка: " + guess);
                 }
